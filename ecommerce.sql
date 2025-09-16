@@ -381,5 +381,27 @@ VALUES
 
 -----------------------------------------------------
 -----------------------------------------------------
-alter table usuarios
-add index idx_email (email);
+create index idx_enderecos_cliente_id ON enderecos (cliente_id);
+
+create index idx_produtos_categoria_id ON produtos (categoria_id);
+
+create index idx_pedidos_cliente_id ON pedidos (cliente_id);
+
+create index idx_itens_pedido_pedido_id ON itens_pedido (pedido_id);
+
+create index idx_itens_pedido_produto_id ON itens_pedido (produto_id);
+
+alter table enderecos
+add constraint fk_enderecos_cliente_id foreign key (cliente_id) references usuarios(id);
+
+alter table produtos
+add constraint fk_produtos_categoria_id foreign key (categoria_id) references categorias(id);
+
+alter table pedidos
+add constraint fk_pedidos_cliente_id foreign key (cliente_id) references usuarios (id);
+
+alter table itens_pedido
+add constraint fk_itens_pedido_pedido_id foreign key (pedido_id) references pedidos (id);
+
+alter table itens_pedido
+add constraint fk_itens_pedido_produto_id foreign key (produto_id) references produtos(id);
